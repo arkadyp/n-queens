@@ -73,6 +73,26 @@ window.createFactorialTree = function createFactorialTree(n) {
   return root;
 };
 
+window.traceTree = function( tree ) {
+  var results = [];  // contains array of arrays, each describing a permutation
+
+  var findPath = function(t, res) {
+    var newRes = res.concat(t.value);
+    if(t.children.length === 0) {
+      results.push(newRes);
+    } else {
+      _.each(t.children, function(child) {
+        findPath(child, newRes);
+      });
+    }
+  }
+
+   _.each(tree.children, function(initVals) {
+     findPath(initVals, []);
+   });
+  return results;
+};
+
 window.findNRooksSolution = function(n){
   var result = findAllNSolutions(n, 'addRook');
   var solution = result[0];
