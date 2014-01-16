@@ -37,7 +37,41 @@ window.findAllNSolutions = function(n, funcName) {
 
   addPieceToBoard(board, openSpaces, 0);
   return results;
-}
+};
+
+window.createFactorialTree = function createFactorialTree(n) {
+
+  var Tree = function Tree(value) {
+    this.value = value;
+    this.children = [];
+    this.parent = null;
+    this.availableSpaces = {};
+  };
+
+  Tree.prototype.addChild = function addChild(value) {
+    var child = new Tree(value);
+    child.parent = this;
+    this.children.push(child);
+    _.extend(child.availableSpaces, this.availableSpaces);
+    delete child.availableSpaces[ value];
+    return child;
+  };
+
+  Tree.prototype.fillTree = function fillTree() {
+    for(value in this.availableSpaces) {
+      var child = this.addChild( value );
+      child.fillTree();
+    }
+  };
+
+  var root = new Tree(null);
+  for(var i=0; i<n; i++) {
+    root.availableSpaces[i] = true;
+  }
+
+  root.fillTree();
+  return root;
+};
 
 window.findNRooksSolution = function(n){
   var result = findAllNSolutions(n, 'addRook');
