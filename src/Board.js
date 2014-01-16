@@ -82,7 +82,7 @@
       var row = this.get(rowIndex);
       var count = 0;
       for(var i = 0; i < row.length; i++) {
-        count += row[i];
+        count += row[i] || 0;
       }
       return (count > 1);
     },
@@ -109,7 +109,7 @@
       var count = 0;
       if(!(this._isInBounds(0, colIndex)) ) return;
       for(var row=0; row < length; row++) {
-        count+=this.get(row)[colIndex];
+        count+=this.get(row)[colIndex] || 0;
       }
       return count > 1; // fixme
     },
@@ -145,7 +145,7 @@
       //step down the cheseboard down/right at each step
       // debugger;
       for(rowIndex; rowIndex < length && colIndex < length; rowIndex++, colIndex++) {
-        count += this.get(rowIndex)[colIndex];
+        count += this.get(rowIndex)[colIndex] || 0;
       }
       return count > 1;
     },
@@ -181,7 +181,7 @@
       var count = 0;
       //step down the chessboard down/right at each step
       for(rowIndex; rowIndex < length && colIndex >= 0 ; rowIndex++, colIndex--) {
-        count += this.get(rowIndex)[colIndex];
+        count += this.get(rowIndex)[colIndex] || 0;
       }
       return count > 1;
     },
@@ -202,7 +202,7 @@
       if(!(this._isInBounds(rowIndex, colIndex))) {
         throw( 'Rook Location Out of Bounds');
       }
-      if(this.get(rowIndex)[colIndex] !== 0) {
+      if(this.get(rowIndex)[colIndex]) {
         throw( 'Rook Location Already Occupied');
       }
       this.get(rowIndex)[colIndex] = 1;
@@ -220,7 +220,7 @@
       if(!(this._isInBounds(rowIndex, colIndex))) {
         throw( 'Queen Location Out of Bounds');
       }
-      if(this.get(rowIndex)[colIndex] !== 0) {
+      if(this.get(rowIndex)[colIndex]) {
         throw( 'Queen Location Already Occupied');
       }
 
